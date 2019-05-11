@@ -24,15 +24,15 @@
 #   while row > 0 && row < 3
 #     4.times
 # =>    new_hourglass = []
-#       new_hourglass.add(input[row][col])
-#       new_hourglass.add(input[row][col+1])
-#       new_hourglass.add(input[row][col+2])
+#       new_hourglass.add(arr[row][col])
+#       new_hourglass.add(arr[row][col+1])
+#       new_hourglass.add(arr[row][col+2])
 
-#       new_hourglass.add(input[row+1][col+1])
+#       new_hourglass.add(arr[row+1][col+1])
 
-# =>    new_hourglass.add(input[row+2][col])
-#       new_hourglass.add(input[row+2][col+1])
-#       new_hourglass.add(input[row+2][col+2])
+# =>    new_hourglass.add(arr[row+2][col])
+#       new_hourglass.add(arr[row+2][col+1])
+#       new_hourglass.add(arr[row+2][col+2])
 #       hourglasses << {new_hourglass.sum, new_hourglass}
 # =>    col ++
 #
@@ -47,21 +47,27 @@ def hourglassSum(arr)
     4.times do #4 hourglasses per row
         new_hourglass = []
 
-        new_hourglass.add(input[row][col])
-        new_hourglass.add(input[row][col+1])
-        new_hourglass.add(input[row][col+2])
+        new_hourglass << (arr[row][col])
+        new_hourglass << (arr[row][col+1])
+        new_hourglass << (arr[row][col+2])
 
-        new_hourglass.add(input[row+1][col+1]) #hourglass cinch / middle
+        new_hourglass << (arr[row+1][col+1]) #hourglass cinch / middle
 
-        new_hourglass.add(input[row+2][col])
-        new_hourglass.add(input[row+2][col+1])
-        new_hourglass.add(input[row+2][col+2])
+        new_hourglass << (arr[row+2][col])
+        new_hourglass << (arr[row+2][col+1])
+        new_hourglass << (arr[row+2][col+2])
 
-        hourglasses.add( {new_hourglass.sum => new_hourglass} )
+        hourglasses[new_hourglass.sum] = new_hourglass
         p new_hourglass
         col += 1
       end
     row += 1 #start hourglass at next row
   end
-p hourglasses
+  p hourglasses
+  return hourglasses.keys.max_by{ |key| key }
 end
+
+
+testcase1 = [[1, 1, 1, 0, 0, 0], [0, 1, 0, 0, 0, 0], [1, 1, 1, 0, 0, 0], [0, 0, 2, 4, 4, 0], [0, 0, 0, 2, 0, 0], [0, 0, 1, 2, 4, 0]]
+
+p hourglassSum(testcase1)
