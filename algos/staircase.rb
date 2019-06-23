@@ -49,7 +49,7 @@
         # current elements nubmer of hashtags
 input = 6
 (1..input.to_i).each do |level|
-  line =  " " * (input - level + 1)
+  line =  " " * (input - level)
   line += "#" * level
   puts line
 end
